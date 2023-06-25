@@ -50,46 +50,6 @@ function Home() {
    {recipts.map((recipt) => {
     return (
         <div key={recipt.id}>
-            {/* <ul className="conts">
-                <li style={{ textDecoration: 'none', listStyle: 'none' }}>
-                    <Card style={{ width: '19rem',
-                                     }}>
-                        <ListGroup className="list-group-flush">
-                            <Link to={`/viewRecipt/${recipt._id}`} style={{ textDecoration: 'none' }}>
-                                <ListGroup.Item><h5 style={{ textAlign: 'center' }}>{recipt.name}</h5> </ListGroup.Item>    
-                            </Link>
-                            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-
-                                <Button onClick={() => { navigate(`/updateRecipt/${recipt._id}`); } }
-                                    style={{
-                                        width: '150px',
-                                        marginLeft: '45px',
-                                        marginTop: '10px',
-                                        marginBottom: '10px'
-                                    }}
-                                    variant="success"
-                                    name="edit"
-                                >
-                                    Edit
-                                </Button>
-                                <Button onClick={(e) => handleDelete(recipt._id)}
-                                    style={{
-                                        width: '150px',
-                                        marginLeft: '45px',
-                                        marginTop: '10px',
-                                        marginBottom: '10px',
-                                        marginRight: '30px'
-                                    }}
-                                    variant="danger"
-                                    name="delete"
-                                >
-                                    Delete
-                                </Button>
-                            </div>
-                        </ListGroup>
-                    </Card>
-                </li>
-            </ul> */}
             <Card style={{ width: '18rem' }}>
       {/* <Card.Img variant="top" src={bg} /> */}
       <Card.Body>
