@@ -1,13 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
+import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
+import bg from './assets/bgone.jpg'
 
 
 function Home() {
 
     const [recipts, setRecipt] = useState([])
+    const navigate = useNavigate()
 
+    // taking all the recipes in the database 
     useEffect(() => {
         axios.get("http://localhost:3001")
         .then(result => setRecipt(result.data))
@@ -15,7 +21,7 @@ function Home() {
     }, [])
 
 
-
+    // deleting a avalable recipe from the database
     const handleDelete = (id) => {
             Swal.fire({
               title: 'Are you sure?',
@@ -36,37 +42,63 @@ function Home() {
           };
 
     return ( 
-        <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
-            <div className="w-50 bg-white rounded p-3">
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Recipt Name</th>
-                            <th>Ingredients</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            recipts.map((recipt)  => {
-                               return <tr>
-                                    <td>{recipt.id}</td>
-                                    <td> {recipt.name} </td>
-                                    <td> {recipt.ingredients} </td>
-                                    <td> {recipt.description} </td>
-                                    <td> 
-                                        <Link to={`/updateRecipt/${recipt._id}`} className="btn btn-success">Update</Link>
-                                        <Link className="btn btn-danger" onClick={(e) => handleDelete(recipt._id)}>Delete</Link>
-                                    </td>
-                                </tr>
-                            })
-                        }
-                    </tbody>
-                </table>
+     
+        <div style={{ background: `url(${bg})`, backgroundSize: 'cover', minHeight: '100vh' }}>
+             <h1 style={{textAlign: 'center', padding: '20px'}}>All Recipes</h1>
+             <p style={{textAlign: 'center'}}>Click Recipe Name for View the Ingredients and Much More!!</p>
+             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginLeft: '300px', marginTop: '100px' }}>
+            
+{recipts.map((recipt) => {
+    return (
+        <div key={recipt.id}>
+            <ul className="conts">
+                <li style={{ textDecoration: 'none', listStyle: 'none' }}>
+                    <Card style={{ width: '19rem',
+                                     }}>
+                        <ListGroup className="list-group-flush">
+                            <Link to={`/viewRecipt/${recipt._id}`} style={{ textDecoration: 'none' }}>
+                                <ListGroup.Item><h5 style={{ textAlign: 'center' }}>{recipt.name}</h5> </ListGroup.Item>    
+                            </Link>
+                            <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
 
-            </div>
+                                <Button onClick={() => { navigate(`/updateRecipt/${recipt._id}`); } }
+                                    style={{
+                                        width: '150px',
+                                        marginLeft: '45px',
+                                        marginTop: '10px',
+                                        marginBottom: '10px'
+                                    }}
+                                    variant="success"
+                                    name="edit"
+                                >
+                                    Edit
+                                </Button>
+                                <Button onClick={(e) => handleDelete(recipt._id)}
+                                    style={{
+                                        width: '150px',
+                                        marginLeft: '45px',
+                                        marginTop: '10px',
+                                        marginBottom: '10px',
+                                        marginRight: '30px'
+                                    }}
+                                    variant="danger"
+                                    name="delete"
+                                >
+                                    Delete
+                                </Button>
+                            </div>
+                        </ListGroup>
+                    </Card>
+                </li>
+            </ul>
         </div>
+    );
+})}
+</div>
+        </div>
+        
+       
+
      );
 }
 

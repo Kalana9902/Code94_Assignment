@@ -17,7 +17,7 @@ function App() {
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/updateRecipt/:id' element={<UpdateRecipt></UpdateRecipt>}></Route>
         <Route path='/addRecipt' element={<AddRecipt></AddRecipt>}></Route>
-        <Route path='/viewRecipt' element={<ViewRecipt></ViewRecipt>}></Route>
+        <Route path='/viewRecipt/:id' element={<ViewRecipt></ViewRecipt>}></Route>
       </Routes>
       </BrowserRouter>
     </div>
