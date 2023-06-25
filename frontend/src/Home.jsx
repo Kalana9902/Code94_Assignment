@@ -1,11 +1,39 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from 'sweetalert2';
+
 
 function Home() {
 
-    const [recipts, setRecipt] = useState([{
-        ID: 1 , Name:  "Fried Rice", Ingredients: "Basmathi, Carrot, Salt Peper", Description: "add basmathi "
-    }])
+    const [recipts, setRecipt] = useState([])
+
+    useEffect(() => {
+        axios.get("http://localhost:3001")
+        .then(result => setRecipt(result.data))
+        .catch(err  => console.log(err))
+    }, [])
+
+
+
+    const handleDelete = (id) => {
+            Swal.fire({
+              title: 'Are you sure?',
+              text: 'You are about to delete this recipe.',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                axios.delete('http://localhost:3001/deleteRecipt/'+id)
+                .then(result =>{ console.log(result)
+                    window.location.reload()})
+                .catch(err => console.log(err))
+              }
+            });
+          };
 
     return ( 
         <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
@@ -23,13 +51,13 @@ function Home() {
                         {
                             recipts.map((recipt)  => {
                                return <tr>
-                                    <td>{recipt.ID}</td>
-                                    <td> {recipt.Name} </td>
-                                    <td> {recipt.Ingredients} </td>
-                                    <td> {recipt.Description} </td>
+                                    <td>{recipt.id}</td>
+                                    <td> {recipt.name} </td>
+                                    <td> {recipt.ingredients} </td>
+                                    <td> {recipt.description} </td>
                                     <td> 
-                                        <Link to="/updateRecipt" className="btn btn-success">Update</Link>
-                                        <Link to="/updateRecipt" className="btn btn-danger">Delete</Link>
+                                        <Link to={`/updateRecipt/${recipt._id}`} className="btn btn-success">Update</Link>
+                                        <Link className="btn btn-danger" onClick={(e) => handleDelete(recipt._id)}>Delete</Link>
                                     </td>
                                 </tr>
                             })
