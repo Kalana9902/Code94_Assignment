@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
-import bg from './assets/bgone.jpg'
+import bg from './assets/bgtwo.jpg'
 
 
 function Home() {
@@ -44,14 +43,14 @@ function Home() {
     return ( 
      
         <div style={{ background: `url(${bg})`, backgroundSize: 'cover', minHeight: '100vh' }}>
-             <h1 style={{textAlign: 'center', padding: '20px'}}>All Recipes</h1>
-             <p style={{textAlign: 'center'}}>Click Recipe Name for View the Ingredients and Much More!!</p>
-             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginLeft: '300px', marginTop: '100px' }}>
+             <h1 style={{textAlign: 'center', padding: '20px', color:'white', fontSize: '100px'}}>All Recipes</h1>
+             <p style={{textAlign: 'center', color:'white', fontSize: '30px'}}>Click Recipe Name for View the Ingredients and Much More!!</p>
+             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginLeft: '300px',marginRight:'250px', marginTop: '100px' }}>
                          
    {recipts.map((recipt) => {
     return (
         <div key={recipt.id}>
-            <ul className="conts">
+            {/* <ul className="conts">
                 <li style={{ textDecoration: 'none', listStyle: 'none' }}>
                     <Card style={{ width: '19rem',
                                      }}>
@@ -90,7 +89,22 @@ function Home() {
                         </ListGroup>
                     </Card>
                 </li>
-            </ul>
+            </ul> */}
+            <Card style={{ width: '18rem' }}>
+      {/* <Card.Img variant="top" src={bg} /> */}
+      <Card.Body>
+      <Link to={`/viewRecipt/${recipt._id}`} style={{ textDecoration: 'none' }}>
+        <Card.Title style={{color:'black'}}>{recipt.name}</Card.Title>
+      </Link>
+        <Card.Text>
+         {recipt.id}
+        </Card.Text>
+        <div style={{display: 'flex', justifyContent: 'space-between',marginLeft:'20px', marginRight: '20px'}}>
+        <Button onClick={() => { navigate(`/updateRecipt/${recipt._id}`); } } style={{width:'70px'}} className="btn  btn-success">Edit</Button>
+        <Button onClick={(e) => handleDelete(recipt._id)} variant="danger">Delete</Button>
+        </div>
+      </Card.Body>
+    </Card>
         </div>
     );
 })}

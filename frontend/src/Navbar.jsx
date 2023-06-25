@@ -10,7 +10,7 @@ function NavBar() {
   }
 
     return ( 
-      <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
+      <Navbar bg="light" data-bs-theme="light" expand="lg" className="bg-body-tertiary">
       <Container style={{display: 'flex', justifyContent:"space-between"}}>
         <div>
         <Navbar.Brand href="/">Recipes Manager</Navbar.Brand>

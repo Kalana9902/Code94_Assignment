@@ -48,21 +48,21 @@ function UpdateRecipt() {
                 <form  onSubmit={updateRecipe}>
                     <h2>Update Recipt</h2>
                     <div  className="mb-2">
-                        <label htmlFor="">Name</label>
-                        <input type="text" placeholder="Enter Recipt Name" className="form-control"
+                        <label htmlFor="" style={{fontWeight:'bold', fontSize:'20px'}}>Name</label>
+                        <input style={{fontSize:'25px'}} type="text" placeholder="Enter Recipt Name" className="form-control"
                         value={name} onChange={(e) => setName(e.target.value)}></input>
                     </div>
                     <div  className="mb-2">
-                        <label htmlFor="">Ingredients</label>
-                        <input type="text" placeholder="Enter Recipt Name" className="form-control" value={ingredients}
-                        onChange={(e) => setIngredientd(e.target.value)}></input>
+                        <label htmlFor="" style={{fontWeight:'bold', fontSize:'20px'}}>Ingredients</label>
+                        <input style={{fontSize:'25px'}} type="text" placeholder="Enter Recipt Name" className="form-control" value={ingredients}
+                        onChange={(e) => setIngredients(e.target.value)}></input>
                     </div>
                     <div  className="mb-2">
-                        <label htmlFor="">Description</label>
-                        <textarea style={{height: '200px'}} type="text" placeholder="Enter Recipt Name" className="form-control" value={description}
+                        <label htmlFor="" style={{fontWeight:'bold', fontSize:'20px'}}>Description</label>
+                        <textarea style={{height: '200px',  fontSize:'25px'}} type="text" placeholder="Enter Recipt Name" className="form-control" value={description}
                         onChange={(e) => setDescription(e.target.value)}></textarea>
                     </div>
-                    <button  className="btn btn-success">Update</button>
+                    <button style={{fontSize:'30px'}} className="btn btn-success">Update</button>
                 </form>
             </div>
         </div>
