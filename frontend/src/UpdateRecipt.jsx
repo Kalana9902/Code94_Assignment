@@ -2,38 +2,50 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import bg from './assets/bgone.jpg'
+import { toast } from "react-toastify";
 
 function UpdateRecipt() {
-    const{id} = useParams()
-    const[name, setName] = useState()
-    const[ingredients, setIngredientd] = useState()
-    const[description, setDescription] = useState()
-    const navigate = useNavigate()
+    const { id } = useParams();
+    const [name, setName] = useState("");
+    const [ingredients, setIngredients] = useState("");
+    const [description, setDescription] = useState("");
+    const navigate = useNavigate();
 
-    //taking recipt details according the recipt id when page loading
-    useEffect(()  => {
-        axios.get('http://localhost:3001/getRecipt/'+id)
-        .then(result => {console.log(result)
-            setName(result.data.name)
-            setIngredientd(result.data.ingredients)
-            setDescription(result.data.description)
-        })
-        .catch(err => console.log(err))
-    }, [])
+    // Fetching recipe details based on the recipe id when the page loads
+    useEffect(() => {
+        axios
+            .get('http://localhost:3001/getRecipe/'+id)
+            .then((result) => {
+                const { name, ingredients, description } = result.data;
+                setName(name);
+                setIngredients(ingredients);
+                setDescription(description);
+            })
+            .catch((err) => console.log(err));
+    }, [id]);
 
-    //updatng current values according the particular id
-    const Update = (e) => {
-        e.preventDefault()
-        axios.put('http://localhost:3001/updateRecipt/'+id, {name, ingredients, description})
-        .then(result =>{ console.log(result)
-        navigate('/')})
-        .catch(err => console.log(err))
+    // Updating the current values for the particular id
+    const updateRecipe = (e) => {
+        e.preventDefault();
+            axios.put('http://localhost:3001/updateRecipe/'+id, {
+                name,
+                ingredients,
+                description,
+            })
+            .then((result) => {
+                console.log(result);
+                navigate('/');
+                toast.success("Recipe updated successfully", {
+                    position: 'top-center',
+                    autoClose: 1500
+                });
+            })
+            .catch((err) => console.log(err));
     }
-
     return ( 
         <div style={{background:`url(${bg})`, backgroundSize: 'cover', minHeight: '100vh'}} className="d-flex vh-100 bg-primary justify-content-center align-items-center">
             <div  className="w-50 bg-white rounded p-3">
-                <form  onSubmit={Update}>
+                <form  onSubmit={updateRecipe}>
                     <h2>Update Recipt</h2>
                     <div  className="mb-2">
                         <label htmlFor="">Name</label>

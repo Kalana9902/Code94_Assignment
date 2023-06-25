@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 })
 
 // api endpoint for racipe details according to a particular id
-app.get('/getRecipt/:id', (req, res) => {
+app.get('/getRecipe/:id', (req, res) => {
     const id = req.params.id;
     ReciptModel.findById({_id: id})
     .then(recipt => res.json(recipt))
@@ -41,7 +41,7 @@ app.get('/getRecipt/:id', (req, res) => {
 })
 
 // api endpoint for updating a recipe accorging to the id
-app.put('/updateRecipt/:id', (req, res) => {
+app.put('/updateRecipe/:id', (req, res) => {
     const id = req.params.id;
     ReciptModel.findByIdAndUpdate({_id: id}, 
         {name: req.body.name,

@@ -47,8 +47,8 @@ function Home() {
              <h1 style={{textAlign: 'center', padding: '20px'}}>All Recipes</h1>
              <p style={{textAlign: 'center'}}>Click Recipe Name for View the Ingredients and Much More!!</p>
              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginLeft: '300px', marginTop: '100px' }}>
-            
-{recipts.map((recipt) => {
+                         
+   {recipts.map((recipt) => {
     return (
         <div key={recipt.id}>
             <ul className="conts">

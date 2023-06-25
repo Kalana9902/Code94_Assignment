@@ -6,12 +6,14 @@ import UpdateRecipt from './UpdateRecipt'
 import AddRecipt from './AddRecipt'
 import ViewRecipt from './ViewRecipt'
 import NavBar from './navbar'
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 
   return (
     <div>
       <NavBar></NavBar>
+      <ToastContainer />
       <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
