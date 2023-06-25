@@ -1,26 +1,46 @@
 import React, { useState } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import bg from './assets/bgone.jpg'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function AddRecipt() {
 
+    //handling and manging state values
     const[name, setName] = useState()
     const[ingredients, setIngredientd] = useState()
     const[description, setDescription] = useState()
     const navigate = useNavigate()
-
+  
+    //Submit and handling form inputs saving to the database
     const Submit = (e) => {
         e.preventDefault();
-        axios.post("http://localhost:3001/addRecipt",{name,ingredients,description})
-        .then(result => {
-            console.log(result)
-            navigate('/')
-        } )
-        .catch(err  => console.log(err))
-    }
+        if (!name || !ingredients || !description) {
+            toast.error("Please fill in all fields", {
+              position: 'top-center',
+              autoClose: 1500
+            });
+            return; // Stop further execution
+          }
+        
+        axios
+          .post("http://localhost:3001/addRecipt", { name, ingredients, description })
+          .then((result) => {
+            console.log(result);
+            navigate('/');
+            toast.success("Recipe saved successfully", {
+                position: 'top-center',
+                autoClose: 1500
+            }) ; // Display success toast message
+          })
+          .catch((err) => console.log(err));
+      };
+      
 
     return ( 
-        <div className="d-flex vh-100 bg-primary justify-content-center align-items-center">
+        <div className="d-flex vh-100 bg-success justify-content-center align-items-center" style={{background: `url(${bg})`, backgroundSize: 'cover', minHeight: '100vh'}}>
             <div  className="w-50 bg-white rounded p-3">
                 <form onSubmit={Submit}>
                     <h2>Add Recipt</h2>
@@ -31,15 +51,15 @@ function AddRecipt() {
                     </div>
                     <div  className="mb-2">
                         <label htmlFor="">Ingredients</label>
-                        <input type="text" placeholder="Enter Recipt Name" className="form-control"
-                        onChange={(e) => setIngredientd(e.target.value)}></input>
+                        <textarea type="text" placeholder="Enter Ingredients" className="form-control"
+                        onChange={(e) => setIngredientd(e.target.value)}></textarea>
                     </div>
                     <div  className="mb-2">
                         <label htmlFor="">Description</label>
-                        <input type="text" placeholder="Enter Recipt Name" className="form-control"
-                        onChange={(e) => setDescription(e.target.value)}></input>
+                        <textarea type="text" placeholder="Enter Descripton" className="form-control"
+                        onChange={(e) => setDescription(e.target.value)}></textarea>
                     </div>
-                    <button  className="btn btn-success">Submit</button>
+                    <button  className="btn btn-success">Add Recipt</button>
                 </form>
             </div>
         </div>
